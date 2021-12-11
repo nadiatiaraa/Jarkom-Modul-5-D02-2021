@@ -19,9 +19,266 @@ Keterangan : 	Doriki adalah DNS Server
 
 (B) Karena kalian telah belajar subnetting dan routing, Luffy ingin meminta kalian untuk membuat topologi tersebut menggunakan teknik CIDR atau VLSM. setelah melakukan subnetting, 
 
+Melakukan subnetting VLSM sebagai berikut
+
+<img width="1111" alt="Screen Shot 2021-12-11 at 21 23 04" src="https://user-images.githubusercontent.com/72669398/145679990-9b37d3ad-9176-4c94-b459-318e31742ee2.png">
+
+Setelah dikelompokkan menjadi beberapa subnet, dapat dilakukan pembagian IP sebagai berikut
+
+<img width="643" alt="Screen Shot 2021-12-11 at 21 23 26" src="https://user-images.githubusercontent.com/72669398/145679998-423b2975-3d2c-4727-857f-cf6fb3efe3f8.png">
+
+Dimana NID dan broadcast addressnya dapat dicari menggunakan tree sebagai berikut
+
+<img width="539" alt="Screen Shot 2021-12-11 at 21 23 40" src="https://user-images.githubusercontent.com/72669398/145680007-78112335-4ee0-4b75-afaf-2c1dbef30b19.png">
+
+Kemudian lakukan konfigurasi network interface pada setiap device sesuai pembagian subnet sebagai berikut
+
+**FOOSHA**
+```
+auto lo
+iface lo inet loopback
+ 
+auto eth0
+iface eth0 inet static
+address 192.168.122.2
+netmask 255.255.255.252
+gateway 192.168.122.1
+ 
+# Water7 (A4-)
+auto eth1
+iface eth1 inet static
+address 10.22.0.1
+netmask 255.255.255.252
+ 
+#Guanhao (A5-)
+auto eth2
+iface eth2 inet static
+address 10.22.0.5
+netmask 255.255.255.252
+```
+**WATER7**
+```
+auto lo
+iface lo inet loopback
+ 
+#Foosha (A5+)
+auto eth0
+iface eth0 inet static
+address 10.22.0.2
+netmask 255.255.255.252
+ 
+#Blueno (A2-)
+auto eth1
+iface eth1 inet static
+address 10.22.0.129
+netmask 255.255.255.128
+ 
+#Doriki Jipangu (A1-)
+auto eth2
+iface eth2 inet static
+address 10.22.0.9
+netmask 255.255.255.248
+ 
+#Cipher (A3-)
+auto eth3
+iface eth3 inet static
+address 10.22.4.1
+netmask 255.255.252.0
+```
+
+**GUANHAO**
+```
+auto lo
+iface lo inet loopback
+ 
+#Foosha (A5+)
+auto eth0
+iface eth0 inet static
+address 10.22.0.6
+netmask 255.255.255.252
+ 
+#Elena (A6-)
+auto eth1
+iface eth1 inet static
+address 10.22.2.1
+netmask 255.255.254.0
+ 
+#Maingate Jorge (A8-)
+auto eth2
+iface eth2 inet static
+address 10.22.0.17
+netmask 255.255.255.248
+ 
+#Fukurou (A7-)
+auto eth3
+iface eth3 inet static
+address 10.22.1.1
+netmask 255.255.255.0
+```
+
+**DORIKI**
+```
+auto lo
+iface lo inet loopback
+ 
+#Water7 (A1+)
+auto eth0
+iface eth0 inet static
+address 10.22.0.10
+netmask 255.255.255.248
+gateway 10.22.0.9
+```
+
+**JIPANGU**
+```
+auto lo
+iface lo inet loopback
+ 
+#Water7 (A1++)
+auto eth0
+iface eth0 inet static
+address 10.22.0.11
+netmask 255.255.255.248
+gateway 10.22.0.9
+```
+ 
+**JORGE**
+```
+auto lo
+iface lo inet loopback
+ 
+#Guanhao (A8+)
+auto eth0
+iface eth0 inet static
+address 10.22.0.18
+netmask 255.255.255.248
+gateway 10.22.0.17
+```
+
+**MAINGATE**
+```
+auto lo
+iface lo inet loopback
+ 
+#Guanhao (A8++)
+auto eth0
+iface eth0 inet static
+address 10.22.0.19
+netmask 255.255.255.248
+gateway 10.22.0.17
+```
+ 
+**BLUENO**
+```
+auto lo
+iface lo inet loopback
+ 
+#Water7 (A2+)
+auto eth0
+iface eth0 inet static
+address 10.22.0.130
+netmask 255.255.255.128
+gateway 10.22.0.129
+```
+
+CIPHER
+```
+auto lo
+iface lo inet loopback
+ 
+#Water7 (A3+)
+auto eth0
+iface eth0 inet static
+address 10.22.4.2
+netmask 255.255.252.0
+gateway 10.22.4.1
+```
+ 
+**ELENA**
+```
+auto lo
+iface lo inet loopback
+ 
+#Guanhao (A6+)
+auto eth0
+iface eth0 inet static
+address 10.22.2.2
+netmask 255.255.254.0
+gateway 10.22.2.1
+```
+ 
+**FUKUROU**
+```
+auto lo
+iface lo inet loopback
+ 
+#Guanhao (A7+)
+auto eth0
+iface eth0 inet static
+address 10.22.1.2
+netmask 255.255.255.0
+gateway 10.22.1.1
+```
+
 (C) Kalian juga diharuskan melakukan Routing agar setiap perangkat pada jaringan tersebut dapat terhubung.
+Melakukan konfigurasi routing pada setiap router berdasarkan NID yang sudah didapatkan sebagai berikut
+ 
+**FOOSHA**
+```
+#A4
+route add -net 10.22.0.128 netmask 255.255.255.128 gw 10.22.0.2 #A2
+route add -net 10.22.4.0 netmask 255.255.252.0 gw 10.22.0.2 #A3
+route add -net 10.22.0.8 netmask 255.255.255.248 gw 10.22.0.2 #A1
+ 
+#A5
+route add -net 10.22.2.0 netmask 255.255.254.0 gw 10.22.0.6 #A6
+route add -net 10.22.1.0 netmask 255.255.255.0 gw 10.22.0.6 #A7
+route add -net 10.22.0.16 netmask 255.255.255.248 gw 10.22.0.6 #A8
+```
+
+**WATER7**
+```
+#Default
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.22.0.1
+```
+ 
+**GUANHAO**
+```
+#Default
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.22.0.5
+```
+ 
+Kemudian jalankan perintah `iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.22.0.0/16` pada FOOSHA dan `echo nameserver 192.168.122.1 > /etc/resolv.conf` pada device yang lain agar semua device dapat terhubung ke internet.
 
 (D) Tugas berikutnya adalah memberikan ip pada subnet Blueno, Cipher, Fukurou, dan Elena secara dinamis menggunakan bantuan DHCP server. Kemudian kalian ingat bahwa kalian harus setting DHCP Relay pada router yang menghubungkannya.
+
+Menginstall DHCP server pada node JIPANGU dengan command `apt-get install isc-dhcp-server -y` . Lalu membuat node FOOSHA, GUANHAO, dan WATER7 sebagai DHCP relay dengan menginstall `apt-get install isc-dhcp-relay`. Kemudian masukkan konfigurasi sebagai berikut
+ 
+**DHCP Relay FOOSHA**
+
+<img width="548" alt="Screen Shot 2021-12-11 at 21 24 00" src="https://user-images.githubusercontent.com/72669398/145680021-ca6f7680-c5d7-4b01-be70-4b170983ca17.png">
+
+**DHCP Relay GUANHAO**
+
+<img width="549" alt="Screen Shot 2021-12-11 at 21 24 11" src="https://user-images.githubusercontent.com/72669398/145680032-49513af1-f071-4dd1-9ae7-5ad4ce5a2e5f.png">
+
+**DHCP Relay WATER7**
+
+<img width="547" alt="Screen Shot 2021-12-11 at 21 24 25" src="https://user-images.githubusercontent.com/72669398/145680041-6372d1b4-3899-44e4-af5a-562165881a6d.png">
+
+Kemudian pada node JIPANGU masukkan `INTERFACES="eth0"` pada file `/etc/default/isc-dhcp-server` untuk mendapatkan layanan dari DHCP Server.
+
+<img width="636" alt="Screen Shot 2021-12-11 at 21 24 37" src="https://user-images.githubusercontent.com/72669398/145680045-1d2de058-25bc-4dbc-b7ab-ad92395b562f.png">
+
+Kemudian ubah script `/etc/network/interfaces` pada node-node Client menjadi sebagai berikut
+ 
+```
+auto eth0
+iface eth0 inet dhcp
+```
+ 
+Lalu, restart node Client.
+
 
 # Soal no 1
 Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Foosha menggunakan iptables, tetapi Luffy tidak ingin menggunakan MASQUERADE.
