@@ -99,7 +99,7 @@ iptables -A INPUT -s 10.22.1.0/24 -m time --timestart 15:01 --timestop 06:59 -j 
 
 Kemudian selanjutnya pada syntax keempat pada batas akses Doriki dari Fukurou kami menggunakan : 
 ```
-iptables -A INPUT -s 10.27.1.0/24 -j REJECT
+iptables -A INPUT -s 10.22.1.0/24 -j REJECT
 ```
 
 6. Karena kita memiliki 2 Web Server, Luffy ingin Guanhao disetting sehingga setiap request dari client yang mengakses DNS Server akan didistribusikan secara bergantian pada Jorge dan Maingate
