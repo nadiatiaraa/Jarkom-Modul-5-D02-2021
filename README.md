@@ -52,8 +52,8 @@ di atas merupakan syntax DHCP Server JIPANGU dan DNS Server DORIKI. Dengan mengg
 
 Kemudian kalian diminta untuk membatasi akses ke Doriki yang berasal dari subnet Blueno, Cipher, Elena dan Fukuro dengan beraturan sebagai berikut
 
-# Soal no 4 & 5
-4. Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis.
+# Soal no 4
+Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis.
 
 Syntax di bawah diatur pada DNS Server DORIKI,
 
@@ -77,7 +77,8 @@ Kemudian selanjutnya pada syntax keempat pada batas akses Doriki dari Cipher kam
 iptables -A INPUT -s 10.22.4.0/22 -j REJECT
 ```
 
-5. Akses dari subnet Elena dan Fukuro hanya diperbolehkan pada pukul 15.01 hingga pukul 06.59 setiap harinya.
+# Soal no 5
+Akses dari subnet Elena dan Fukuro hanya diperbolehkan pada pukul 15.01 hingga pukul 06.59 setiap harinya.
 Selain itu di reject
 
 Syntax di bawah diatur pada DNS Server DORIKI:
