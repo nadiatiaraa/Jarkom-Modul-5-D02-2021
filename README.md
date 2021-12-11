@@ -1,14 +1,13 @@
 # Jarkom-Modul-5-D02-2021
 
-** Nama Anggota Kelompok D2 : **
-
+**Nama Anggota Kelompok D2 :**
 - Sabrina Lydia Simanjuntak (05111940000107)
 - Zulfayanti Sofia Solichin (05111940000189)
 - Nadia Tiara Febriana (05111940000217)
 
 (A) Tugas pertama kalian yaitu membuat topologi jaringan sesuai dengan rancangan yang diberikan Luffy dibawah ini:
 
-gambar
+<img width="499" alt="Screen Shot 2021-12-11 at 19 03 07" src="https://user-images.githubusercontent.com/72669398/145675908-767385f8-49ed-495e-8a73-6b0891bbb90c.png">
 
 Keterangan : 	Doriki adalah DNS Server
 		Jipangu adalah DHCP Server
